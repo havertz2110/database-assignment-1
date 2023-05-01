@@ -8,6 +8,6 @@ The problem surroundings things:
 
 - 1b. Write the script for the database ( In SQL ).
 
-- 2. Write code ( u can write in c++, python or java, they are requirements and i chose python because it is easier ) to create SQL files containing the commands to insert information from Excel sheets into corresponding tables in a database. Then, if you run the output file, it will fill the tables for you.
+- 2. Write coee ( c++, java or python are acceptable ) to create SQL files containing commands to insert informatikn from Excel sheets into corresponding tables in the database. Then, if you run the output files in MySQL server command, it will fill the tables foe you
 
-p/s: i will write more, i think so
+p/s: i will write more, i think sooo

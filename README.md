@@ -10,4 +10,4 @@ The problem surroundings things:
 
 - 2. Write code ( u can write in c++, python or java; but i chose python because it is easier ) to create SQL files containing the commands to insert information from Excel sheets into corresponding tables in a database. Then, if you run the output file, it will fill the tables for you.
 
-p/s: i will write more, j think so
+p/s: i will write more, i think so

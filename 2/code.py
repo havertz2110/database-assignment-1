@@ -1,44 +1,43 @@
-# import some lib
+# ta thêm các thư viện cần sử dụng
 import pandas as pd
 import numpy as np
 import os
 
-
+# ta nhập đường dẫn vào như là input, tuy nhiên em đã print ra để dễ tương tác
 print('Nhap duong dan den Data folder: ')
 print("C:\\Users\\buivu\\Downloads\\data\\")
 
-lk_sgd = pd.read_excel('data/sogd.xlsx')
-lk_cap = pd.read_excel('data/capbac.xlsx')
-lk_lh = pd.read_excel('data/loaihinh.xlsx')
-lk_lt = pd.read_excel('data/loaitruong.xlsx')
-lk_pgd = pd.read_excel('data/phonggd.xlsx')
+# ta đọc các thông tin từ file excel ở đây
+thongtinsogd = pd.read_excel('data/sogd.xlsx')
+thongtincapbac = pd.read_excel('data/capbac.xlsx')
+thongtinloaihinh = pd.read_excel('data/loaihinh.xlsx')
+thongtinloaitruong = pd.read_excel('data/loaitruong.xlsx')
+thongtinphonggd = pd.read_excel('data/phonggd.xlsx')
+
+gdtx = pd.read_excel('data/gdtx.xlsx')
+mamnon = pd.read_excel('data/mamnon.xlsx')
+tieuhoc = pd.read_excel('data/tieuhoc.xlsx')
+thcs = pd.read_excel('data/thcs.xlsx')
+thpt = pd.read_excel('data/thpt.xlsx')
+
+# chúng ta sử dụng từ điển để dễ thao tác, thay vì sử dụng chuỗi hay mảng ( em đã thử hai dạng này trước đó, tuy nhiên đều dẫn đến các bug khó chữa )
+dcapbac = {}
+dloaihinh = {}
+dloaitruong = {}
+dphonggd = {}
+dsogd= {}
 
 
-gdtx = pd.read_excel('data/data_gdtx.xlsx')
-mn = pd.read_excel('data/data_mn.xlsx')
-th = pd.read_excel('data/data_th.xlsx')
-thcs = pd.read_excel('data/data_thcs.xlsx')
-thpt = pd.read_excel('data/data_thpt.xlsx')
 
-# create dictionary
-dcap = {}
-dlh = {}
-dlt = {}
-dpgd = {}
-dsgd= {}
-
-
-
-# null data
+# ở đây để xử lí các ô dữ liệu trống
 def xx(leng):
     ans = ''
     for i in range(leng):
         ans += 'X'
     return ans
 
-
-# insert all the table
-def inslk(a, f, table, leng, d):
+# ta tạo hàm để tạo file thêm thông tin
+def insert(a, f, table, leng, d):
     for index, row in a.iterrows():
         ma = str(row['ma' + table])
         ten = str(row['ten' + table])
@@ -49,58 +48,59 @@ def inslk(a, f, table, leng, d):
             f.write('INSERT INTO {} VALUES ("{}", "{}");\n'.format(table, ma, ten))
         d[ten] = ma
 
+# ta thêm thông tin vào table sogd trước
 f = open('data/sogd.sql', 'w', encoding='utf-8')
 f.write('USE truonghoc;\n')
 f.write("INSERT INTO sogd (stt, sogd) VALUES ('1', 'Sở Giáo Dục Và Đào Tạo TPHCM');")
 f.close()
 
-# insert lookup table
-def lookup():
-    f = open('data/lookup.sql', 'w', encoding='utf-8')
+# ta thêm thông tin vào table chứa các thông tin cấp bậc, loại hình/trường, phòng giáo dục
+def thongtincapbacloaihinhtruongphong():
+    f = open('data/thongtincapbacloaihinhtruongphong.sql', 'w', encoding='utf-8')
     f.write('USE truonghoc;\n')
-    inslk(lk_cap, f, 'capbac', 2, dcap)
-    inslk(lk_lt, f, 'loaitruong', 6, dlt)
-    inslk(lk_lh, f, 'loaihinh', 5, dlh)
-    inslk(lk_pgd, f, 'phonggd', 3, dpgd)
+    insert(thongtincapbac, f, 'capbac', 2, dcapbac)
+    insert(thongtinloaitruong, f, 'loaitruong', 6, dloaitruong)
+    insert(thongtinloaihinh, f, 'loaihinh', 5, dloaihinh)
+    insert(thongtinphonggd, f, 'phonggd', 3, dphonggd)
     f.close()
 
 
-# insert to main table
+#thêm thông tin vào table chứa thông tin của tất cả các trường
 def ins(arr, name, cap):
     with open('data/' + name + '.sql', 'w', encoding='utf-8') as f:
         f.write('USE truonghoc;\n')
         for index, row in arr.iterrows():
-            ma = str(row['matruong'])
+            matruong = str(row['matruong'])
 
-            ten = str(row['tentruong'])
+            tentruong = str(row['tentruong'])
 
-            dc = str(row['diachi'])
-            if (dc == 'nan'):
-                dc = 'Không có'
+            diachi = str(row['diachi'])
+            if (diachi == 'nan'):
+                diachi = 'Không có'
 
-            pgd = str(row['phonggd'])
-            if (pgd == 'nan'):
-                pgd = 'NULL'
-            pgd = dpgd[pgd]
+            phonggd = str(row['phonggd'])
+            if (phonggd == 'nan'):
+                phonggd = 'NULL'
+            phonggd = dphonggd[phonggd]
 
-            lh = str(row['loaihinh'])
-            if (lh == 'nan'):
-                lh = 'NULL'
-            lh = dlh[lh]
+            loaihinh = str(row['loaihinh'])
+            if (loaihinh == 'nan'):
+                loaihinh = 'NULL'
+            loaihinh = dloaihinh[loaihinh]
 
-            lt = str(row['loaitruong'])
-            if (lt == 'nan'):
-                lt = 'NULL'
-            lt = dlt[lt]
+            loaitruong = str(row['loaitruong'])
+            if (loaitruong == 'nan'):
+                loaitruong = 'NULL'
+            loaitruong = dloaitruong[loaitruong]
 
             f.write(
-                'INSERT INTO thongtintruong VALUES ("{}", "{}", "{}", "{}", "{}", "{}", "{}");\n'.format(ma, ten, dc, pgd, lh, lt, cap))
+                'INSERT INTO thongtintruong VALUES ("{}", "{}", "{}", "{}", "{}", "{}", "{}");\n'.format(matruong, tentruong, diachi, phonggd, loaihinh, loaitruong, cap))
         f.close()
 
-
-lookup()
+#ta tiếp tục thêm thông tin
+thongtincapbacloaihinhtruongphong()
 ins(gdtx, 'gdtx', 'TX')
-ins(mn, 'mn', 'MN')
-ins(th, 'th', 'TH')
+ins(mamnon, 'mamnon', 'MN')
+ins(tieuhoc, 'tieuhoc', 'TH')
 ins(thcs, 'thcs', 'CS')
 ins(thpt, 'thpt', 'PT')

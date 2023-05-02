@@ -25,7 +25,6 @@ dcapbac = {}
 dloaihinh = {}
 dloaitruong = {}
 dphonggd = {}
-dsogd= {}
 
 
 

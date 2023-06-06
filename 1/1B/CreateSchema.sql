@@ -12,14 +12,12 @@ CREATE TABLE sogd (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
- drop table if exists phonggd;
  create table phonggd(
      maphonggd CHAR(3) not null,
      tenphonggd VARCHAR(50) default null,
      PRIMARY KEY(maphonggd)
      )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
- drop table if exists loaihinh;
  create table loaihinh(
      maloaihinh char(5) not null,
      tenloaihinh varchar(50) default null,
@@ -27,15 +25,12 @@ CREATE TABLE sogd (
      )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
-drop table if exists loaitruong;
 create table loaitruong(
      maloaitruong char(10) not null,
      tenloaitruong varchar(50) default null,
      primary key(maloaitruong)
      )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-
-drop table if exists capbac;
  create table capbac(
      macapbac char(20) not null,
      tencapbac varchar(50) default null,
@@ -43,7 +38,6 @@ drop table if exists capbac;
      )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
-drop table if exists thongtintruong;
  create table thongtintruong(
     matruong varchar(20) not null,
     tentruong varchar(100) not null,

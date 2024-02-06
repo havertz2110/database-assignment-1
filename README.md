@@ -1,6 +1,6 @@
 # database-assignment-1
 
-This is my assignment in Database, its score is equal to mid-term test
+This is my assignment in Database, its score will contribute to the mid-term test
 
 The problem surroundings things:
 
@@ -8,6 +8,6 @@ The problem surroundings things:
 
 -  b) Write the script for the database ( In SQL ).
 
--  c) Write coee ( c++, java or python are acceptable ) to create SQL files containing commands to insert informatikn from Excel sheets into corresponding tables in the database. Then, if you run the output files in MySQL server command, it will fill the tables foe you
+-  c) Write code ( c++, java or python are acceptable ) to create SQL files containing commands to insert information from Excel sheets into corresponding tables in the database. Then, if you run the output files in MySQL server command, it will fill the tables for you
 
 p/s: i will write more, i think sooo
